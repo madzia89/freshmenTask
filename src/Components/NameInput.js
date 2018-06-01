@@ -1,15 +1,16 @@
 import React from 'react'
-import {nameField} from '../state/firstStep'
+import {nameField, checkNameField} from '../state/firstStep'
 import {connect} from 'react-redux'
 
 
 const NameInput = (props) => (
     <div>
         <input
-            name={"nameInput"}
+            id={"nameInput"}
             value={props.temporaryNameField}
             placeholder={'type your name'}
             onChange={(event) => props.nameField(event.target.value)}
+            onBlur={() => props.checkNameField()}
         />
     </div>
 )
@@ -18,7 +19,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    nameField: (nameValue) => dispatch(nameField(nameValue))
+    nameField: (nameValue) => dispatch(nameField(nameValue)),
+    checkNameField: () => dispatch(checkNameField())
 })
 
 export default connect(
