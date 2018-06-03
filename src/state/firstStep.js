@@ -1,4 +1,4 @@
-import {nowDate} from '../Components/utils'
+import {nowDate, searchPolishSignsAndHyphen, ifBlankSpaces, hyphenIsNotLast} from '../Components/utils'
 
 const NAME = 'firstStep/NAME'
 const LAST_NAME = 'firstStep/LAST_NAME'
@@ -11,15 +11,14 @@ export const dateOfBirthField = (dateOfBirthValue) => ({type: DATE_OF_BIRTH, dat
 export const checkNameField = () => (dispatch, getState) => {
     const temporaryNameState = getState().firstStep.temporaryNameField
     const temporaryNameFieldToArray = temporaryNameState.split('')
-    const ifBlankSpaces = temporaryNameFieldToArray.filter(e => e === ' ')
+    const nameBlankSpaces = ifBlankSpaces(temporaryNameFieldToArray)
     const nameInputElement = document.getElementById('nameInput')
-    const hyphenIsNotLast = (temporaryNameFieldToArray[temporaryNameFieldToArray.length - 1] !== '-')
 
 
-    if (ifBlankSpaces.length <= 0) {
-        if (((temporaryNameFieldToArray.length > 2) &&
-            temporaryNameState.search(/[^a-zA-Z-]+/) === -1) &&
-            hyphenIsNotLast) {
+    if (nameBlankSpaces.length <= 0) {
+        if (temporaryNameFieldToArray.length > 2 &&
+            searchPolishSignsAndHyphen(temporaryNameState) &&
+            hyphenIsNotLast(temporaryNameFieldToArray)) {
             nameInputElement.style.borderColor = 'green'
             return nameInputElement
 
@@ -37,16 +36,15 @@ export const checkNameField = () => (dispatch, getState) => {
 export const checkLastNameField = () => (dispatch, getState) => {
     const temporaryLastNameState = getState().firstStep.temporaryLastNameField
     const temporaryLastNameFieldToArray = temporaryLastNameState.split('')
-    const ifBlankSpaces = temporaryLastNameFieldToArray.filter(e => e === ' ')
+    const lastNameBlankSpaces = ifBlankSpaces(temporaryLastNameFieldToArray)
     const lastNameInputElement = document.getElementById('lastNameInput')
-    const hyphenIsNotLast = (temporaryLastNameFieldToArray[temporaryLastNameFieldToArray.length - 1] !== '-')
 
 
-    if (ifBlankSpaces.length <= 0) {
+    if (lastNameBlankSpaces.length <= 0) {
 
-        if (((temporaryLastNameFieldToArray.length > 2) &&
-            (temporaryLastNameState.search(/[^a-zA-Z-]+/) === -1)) &&
-            (hyphenIsNotLast)) {
+        if (temporaryLastNameFieldToArray.length > 2 &&
+            searchPolishSignsAndHyphen(temporaryLastNameState) &&
+            hyphenIsNotLast(temporaryLastNameFieldToArray)) {
             lastNameInputElement.style.borderColor = 'green'
             return lastNameInputElement
 
