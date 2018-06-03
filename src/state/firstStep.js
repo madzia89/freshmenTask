@@ -18,21 +18,18 @@ export const checkNameField = () => (dispatch, getState) => {
 
 
     if (nameBlankSpaces.length <= 0) {
-        if (temporaryNameFieldToArray.length > 2 &&
+        if (temporaryNameFieldToArray.length >= 2 &&
             searchPolishSignsAndHyphen(temporaryNameState) &&
             hyphenIsNotLast(temporaryNameFieldToArray)) {
             nameInputElement.style.borderColor = 'green'
             return nameInputElement
-
         }
         else {
             nameInputElement.style.borderColor = 'red'
-            return nameInputElement
         }
     }
     else {
         nameInputElement.style.borderColor = 'red'
-        return nameInputElement
     }
 }
 export const checkLastNameField = () => (dispatch, getState) => {
@@ -44,7 +41,7 @@ export const checkLastNameField = () => (dispatch, getState) => {
 
     if (lastNameBlankSpaces.length <= 0) {
 
-        if (temporaryLastNameFieldToArray.length > 2 &&
+        if (temporaryLastNameFieldToArray.length >= 2 &&
             searchPolishSignsAndHyphen(temporaryLastNameState) &&
             hyphenIsNotLast(temporaryLastNameFieldToArray)) {
             lastNameInputElement.style.borderColor = 'green'
@@ -66,7 +63,6 @@ export const checkDateOfBirth = () => (dispatch, getState) => {
     const dateOfBirthInputElement = document.getElementById('dateOfBirthInput')
 
     if (temporaryDateOfBirthState !== '') {
-        dateOfBirthInputElement.style.borderWidth = '5px'
 
         if (temporaryDateOfBirthState <= nowDate) {
             dateOfBirthInputElement.style.borderColor = 'green'
@@ -83,11 +79,29 @@ export const checkDateOfBirth = () => (dispatch, getState) => {
     }
 }
 
+export const checkFirstStepFields = () => () => {
+    const nameInputElement = document.getElementById('nameInput')
+    const lastNameInputElement = document.getElementById('lastNameInput')
+    const dateOfBirthInputElement = document.getElementById('dateOfBirthInput')
+    const buttonToSubmitFirstStep = document.getElementById('firstStepSubmitButton')
+    if ((nameInputElement.style.borderColor === 'green') &&
+        (lastNameInputElement.style.borderColor === 'green') &&
+        (dateOfBirthInputElement.style.borderColor === 'green')) {
+        return buttonToSubmitFirstStep.disabled = false
+    }
+}
+
+export const saveToLocalStorage = () => (dispatch, getState) => {
+    const actualData = getState().firstStep.actualData
+    localStorage.setItem(actualData, JSON.stringify(actualData))
+
+}
+
 const initialState = {
     temporaryNameField: '',
     temporaryLastNameField: '',
     temporaryDateOfBirthField: '',
-    actualState: {}
+    actualData: {}
 }
 
 export default (state = initialState, action) => {
@@ -110,9 +124,11 @@ export default (state = initialState, action) => {
         case SUBMIT_FIRST_STEP :
             return {
                 ...state,
-                name: state.temporaryNameField,
-                lastName: state.temporaryLastNameField,
-                dateOfBirth: state.temporaryDateOfBirthField,
+                actualData: {
+                    name: state.temporaryNameField,
+                    lastName: state.temporaryLastNameField,
+                    dateOfBirth: state.temporaryDateOfBirthField,
+                }
             }
         default:
             return state

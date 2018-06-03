@@ -6,7 +6,9 @@ import {
     checkLastNameField,
     dateOfBirthField,
     checkDateOfBirth,
-    submitFirstStep
+    checkFirstStepFields,
+    submitFirstStep,
+    saveToLocalStorage
 } from '../state/firstStep'
 import {connect} from 'react-redux'
 import {nowDate} from './utils'
@@ -20,7 +22,10 @@ const FirstStep = (props) => (
                     value={props.temporaryNameField}
                     placeholder={'type your name'}
                     onChange={(event) => props.nameField(event.target.value)}
-                    onBlur={() => props.checkNameField()}
+                    onBlur={() => {
+                        props.checkNameField()
+                        props.checkFirstStepFields()
+                    }}
                 />
             </div>
             <div>
@@ -29,7 +34,10 @@ const FirstStep = (props) => (
                     value={props.temporaryLastNameField}
                     placeholder={'type your last name'}
                     onChange={(event) => props.lastNameField(event.target.value)}
-                    onBlur={() => props.checkLastNameField()}
+                    onBlur={() => {
+                        props.checkLastNameField()
+                        props.checkFirstStepFields()
+                    }}
                 />
             </div>
             <div>
@@ -39,18 +47,25 @@ const FirstStep = (props) => (
                     value={props.temporaryDateOfBirth}
                     placeholder={'click to pick a date'}
                     onChange={(event) => props.dateOfBirthField(event.target.value)}
-                    onBlur={() => props.checkDateOfBirth()}
+                    onBlur={() => {
+                        props.checkDateOfBirth()
+                        props.checkFirstStepFields()
+                    }}
                     max={nowDate}
                 />
             </div>
-            <button
-                onClick={(e) => {
-                    e.preventDefault()
-                    props.submitFirstStep()
-                }}>
-                Next
-            </button>
+
         </form>
+        <button
+            id={'firstStepSubmitButton'}
+            type={'button'}
+            onClick={() => {
+                props.submitFirstStep()
+                props.saveToLocalStorage()
+            }}
+        >
+            Next
+        </button>
     </div>
 )
 const mapStateToProps = state => ({
@@ -66,7 +81,9 @@ const mapDispatchToProps = dispatch => ({
     checkNameField: () => dispatch(checkNameField()),
     checkLastNameField: () => dispatch(checkLastNameField()),
     checkDateOfBirth: () => dispatch(checkDateOfBirth()),
+    checkFirstStepFields: () => dispatch(checkFirstStepFields()),
     submitFirstStep: () => dispatch(submitFirstStep()),
+    saveToLocalStorage: () => dispatch(saveToLocalStorage()),
 })
 
 export default connect(
