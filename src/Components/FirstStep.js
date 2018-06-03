@@ -10,7 +10,7 @@ import {
 import {connect} from 'react-redux'
 import {nowDate} from './utils'
 
-const NameInput = (props) => (
+const FirstStep = (props) => (
     <div>
         <div>
             <input
@@ -61,4 +61,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(NameInput)
+)(FirstStep)

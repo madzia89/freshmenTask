@@ -1,11 +1,11 @@
 import React, {Component} from 'react'
-import NameInput from './Components/NameInput'
+import FirstStep from './Components/FirstStep'
 
 class App extends Component {
     render() {
         return (
             <div>
-                <NameInput/>
+                <FirstStep/>
             </div>
         )
     }

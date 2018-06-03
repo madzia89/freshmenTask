@@ -11,12 +11,15 @@ export const dateOfBirthField = (dateOfBirthValue) => ({type: DATE_OF_BIRTH, dat
 export const checkNameField = () => (dispatch, getState) => {
     const temporaryNameState = getState().firstStep.temporaryNameField
     const temporaryNameFieldToArray = temporaryNameState.split('')
+    const ifBlankSpaces = temporaryNameFieldToArray.filter(e => e === ' ')
+    const nameInputElement = document.getElementById('nameInput')
+    const hyphenIsNotLast = (temporaryNameFieldToArray[temporaryNameFieldToArray.length - 1] !== '-')
 
-    if (temporaryNameState !== '') {
-        const nameInputElement = document.getElementById('nameInput')
-        nameInputElement.style.borderWidth = '5px'
 
-        if (temporaryNameFieldToArray.length > 2) {
+    if (ifBlankSpaces.length <= 0) {
+        if (((temporaryNameFieldToArray.length > 2) &&
+            temporaryNameState.search(/[^a-zA-Z-]+/) === -1) &&
+            hyphenIsNotLast) {
             nameInputElement.style.borderColor = 'green'
             return nameInputElement
 
@@ -26,17 +29,24 @@ export const checkNameField = () => (dispatch, getState) => {
             return nameInputElement
         }
     }
-    else console.log('ee')
+    else {
+        nameInputElement.style.borderColor = 'red'
+        return nameInputElement
+    }
 }
 export const checkLastNameField = () => (dispatch, getState) => {
     const temporaryLastNameState = getState().firstStep.temporaryLastNameField
     const temporaryLastNameFieldToArray = temporaryLastNameState.split('')
+    const ifBlankSpaces = temporaryLastNameFieldToArray.filter(e => e === ' ')
+    const lastNameInputElement = document.getElementById('lastNameInput')
+    const hyphenIsNotLast = (temporaryLastNameFieldToArray[temporaryLastNameFieldToArray.length - 1] !== '-')
 
-    if (temporaryLastNameState !== '') {
-        const lastNameInputElement = document.getElementById('lastNameInput')
-        lastNameInputElement.style.borderWidth = '5px'
 
-        if (temporaryLastNameFieldToArray.length > 2) {
+    if (ifBlankSpaces.length <= 0) {
+
+        if (((temporaryLastNameFieldToArray.length > 2) &&
+            (temporaryLastNameState.search(/[^a-zA-Z-]+/) === -1)) &&
+            (hyphenIsNotLast)) {
             lastNameInputElement.style.borderColor = 'green'
             return lastNameInputElement
 
@@ -46,13 +56,16 @@ export const checkLastNameField = () => (dispatch, getState) => {
             return lastNameInputElement
         }
     }
-    else console.log('ee')
+    else {
+        lastNameInputElement.style.borderColor = 'red'
+        return lastNameInputElement
+    }
 }
 export const checkDateOfBirth = () => (dispatch, getState) => {
     const temporaryDateOfBirthState = getState().firstStep.temporaryDateOfBirthField
+    const dateOfBirthInputElement = document.getElementById('dateOfBirthInput')
 
     if (temporaryDateOfBirthState !== '') {
-        const dateOfBirthInputElement = document.getElementById('dateOfBirthInput')
         dateOfBirthInputElement.style.borderWidth = '5px'
 
         if (temporaryDateOfBirthState <= nowDate) {
@@ -65,7 +78,9 @@ export const checkDateOfBirth = () => (dispatch, getState) => {
             return dateOfBirthInputElement && console.log('you cannot choose a date in the future')
         }
     }
-    else console.log('ee')
+    else {
+        dateOfBirthInputElement.style.borderColor = 'red'
+    }
 }
 
 const initialState = {
