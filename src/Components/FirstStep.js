@@ -5,42 +5,52 @@ import {
     lastNameField,
     checkLastNameField,
     dateOfBirthField,
-    checkDateOfBirth
+    checkDateOfBirth,
+    submitFirstStep
 } from '../state/firstStep'
 import {connect} from 'react-redux'
 import {nowDate} from './utils'
 
 const FirstStep = (props) => (
     <div>
-        <div>
-            <input
-                id={"nameInput"}
-                value={props.temporaryNameField}
-                placeholder={'type your name'}
-                onChange={(event) => props.nameField(event.target.value)}
-                onBlur={() => props.checkNameField()}
-            />
-        </div>
-        <div>
-            <input
-                id={"lastNameInput"}
-                value={props.temporaryLastNameField}
-                placeholder={'type your last name'}
-                onChange={(event) => props.lastNameField(event.target.value)}
-                onBlur={() => props.checkLastNameField()}
-            />
-        </div>
-        <div>
-            <input
-                id={"dateOfBirthInput"}
-                type={'date'}
-                value={props.temporaryDateOfBirth}
-                placeholder={'click to pick a date'}
-                onChange={(event) => props.dateOfBirthField(event.target.value)}
-                onBlur={() => props.checkDateOfBirth()}
-                max={nowDate}
-            />
-        </div>
+        <form id={'nameForm'}>
+            <div>
+                <input
+                    id={"nameInput"}
+                    value={props.temporaryNameField}
+                    placeholder={'type your name'}
+                    onChange={(event) => props.nameField(event.target.value)}
+                    onBlur={() => props.checkNameField()}
+                />
+            </div>
+            <div>
+                <input
+                    id={"lastNameInput"}
+                    value={props.temporaryLastNameField}
+                    placeholder={'type your last name'}
+                    onChange={(event) => props.lastNameField(event.target.value)}
+                    onBlur={() => props.checkLastNameField()}
+                />
+            </div>
+            <div>
+                <input
+                    id={"dateOfBirthInput"}
+                    type={'date'}
+                    value={props.temporaryDateOfBirth}
+                    placeholder={'click to pick a date'}
+                    onChange={(event) => props.dateOfBirthField(event.target.value)}
+                    onBlur={() => props.checkDateOfBirth()}
+                    max={nowDate}
+                />
+            </div>
+            <button
+                onClick={(e) => {
+                    e.preventDefault()
+                    props.submitFirstStep()
+                }}>
+                Next
+            </button>
+        </form>
     </div>
 )
 const mapStateToProps = state => ({
@@ -56,6 +66,7 @@ const mapDispatchToProps = dispatch => ({
     checkNameField: () => dispatch(checkNameField()),
     checkLastNameField: () => dispatch(checkLastNameField()),
     checkDateOfBirth: () => dispatch(checkDateOfBirth()),
+    submitFirstStep: () => dispatch(submitFirstStep()),
 })
 
 export default connect(

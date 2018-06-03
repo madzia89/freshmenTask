@@ -3,10 +3,12 @@ import {nowDate, searchPolishSignsAndHyphen, ifBlankSpaces, hyphenIsNotLast} fro
 const NAME = 'firstStep/NAME'
 const LAST_NAME = 'firstStep/LAST_NAME'
 const DATE_OF_BIRTH = 'firstStep/DATE_OF_BIRTH'
+const SUBMIT_FIRST_STEP = 'firstStep/SUBMIT_FIRST_STEP'
 
 export const nameField = (nameValue) => ({type: NAME, nameValue})
 export const lastNameField = (lastNameValue) => ({type: LAST_NAME, lastNameValue})
 export const dateOfBirthField = (dateOfBirthValue) => ({type: DATE_OF_BIRTH, dateOfBirthValue})
+export const submitFirstStep = () => ({type: SUBMIT_FIRST_STEP})
 
 export const checkNameField = () => (dispatch, getState) => {
     const temporaryNameState = getState().firstStep.temporaryNameField
@@ -85,6 +87,7 @@ const initialState = {
     temporaryNameField: '',
     temporaryLastNameField: '',
     temporaryDateOfBirthField: '',
+    actualState: {}
 }
 
 export default (state = initialState, action) => {
@@ -103,6 +106,13 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 temporaryDateOfBirthField: action.dateOfBirthValue
+            }
+        case SUBMIT_FIRST_STEP :
+            return {
+                ...state,
+                name: state.temporaryNameField,
+                lastName: state.temporaryLastNameField,
+                dateOfBirth: state.temporaryDateOfBirthField,
             }
         default:
             return state
