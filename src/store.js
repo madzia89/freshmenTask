@@ -4,7 +4,6 @@ import firstStep from './state/firstStep'
 
 export const reducer = combineReducers({
     firstStep
-
 })
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
