@@ -1,4 +1,4 @@
-import {connect} from "react-redux"
+import {store} from '../store'
 
 export let currentTab = 0;
 
@@ -31,13 +31,12 @@ export const nextPrev = (n) => {
 }
 
 export const validateForm = () => {
-    // const firstStepName = connect.NameInput.nameValue
-    // const firstStepEmail = firstStep.email
-    // const firstStepPhone = firstStep.state.phoneNumber
-    // if ((firstStepName !== '') && (firstStepEmail !== '') && (firstStepPhone !== '')) {
-    //     return document.getElementsByClassName("step")[currentTab].className += " finish"
-    // }
-    console.log(firstStepName)
+    const firstStepName = store.getState().firstStep.names
+    const firstStepEmail = store.getState().firstStep.email
+    const firstStepPhone = store.getState().firstStep.phoneNumber
+    if ((firstStepName !== '') && (firstStepEmail !== '') && (firstStepPhone !== '')) {
+        return document.getElementsByClassName("step")[currentTab].className += " finish"
+    }
 }
 
 
