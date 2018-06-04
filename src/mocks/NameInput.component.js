@@ -25,7 +25,7 @@ class NameInput extends Component {
                     }}
                     onBlur={() => {
                         const ifValid = _is[this.state.type](this.state.nameValue)
-                        if (ifValid === true) {
+                        if ((ifValid === true) && (this.state.nameValue !== '')) {
                             this.setState({
                                 isNameValid: true,
                                 className: 'valid'

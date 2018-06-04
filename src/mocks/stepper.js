@@ -37,6 +37,15 @@ export const validateForm = () => {
     if ((firstStepName !== '') && (firstStepEmail !== '') && (firstStepPhone !== '')) {
         return document.getElementsByClassName("step")[currentTab].className += " finish"
     }
+    else if (firstStepName === '') {
+        return alert('fill your name')
+    }
+    else if (firstStepEmail === '') {
+        return alert('fill your email')
+    }
+    else if (firstStepPhone === '') {
+        return alert('fill your phone number')
+    }
 }
 
 
