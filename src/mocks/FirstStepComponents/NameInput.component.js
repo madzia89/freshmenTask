@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import _is from 'is_js'
-import {saveName} from '../state/firstStep'
+import {saveName} from '../../state/firstStep'
 import {connect} from "react-redux";
 
 class NameInput extends Component {
@@ -25,7 +25,10 @@ class NameInput extends Component {
                     }}
                     onBlur={() => {
                         const ifValid = _is[this.state.type](this.state.nameValue)
-                        if ((ifValid === true) && (this.state.nameValue !== '')) {
+                        if ((ifValid === true) &&
+                            (this.state.nameValue !== '') &&
+                            (this.state.nameValue.length > 2)
+                        ) {
                             this.setState({
                                 isNameValid: true,
                                 className: 'valid'
@@ -36,6 +39,7 @@ class NameInput extends Component {
                                 isNameValid: false,
                                 className: 'invalid'
                             })
+                            this.props.saveName('')
                         }
                     }}
                 />

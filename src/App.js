@@ -1,7 +1,10 @@
 import React, {Component} from 'react'
-import EmailInput from "./mocks/EmailInput.component";
-import NameInput from "./mocks/NameInput.component";
-import PhoneInput from "./mocks/PhoneInput.component";
+import EmailInput from "./mocks/FirstStepComponents/EmailInput.component";
+import NameInput from "./mocks/FirstStepComponents/NameInput.component";
+import PhoneInput from "./mocks/FirstStepComponents/PhoneInput.component";
+import CityInput from "./mocks/SecondStepComponents/CityInput.component";
+import StreetInput from "./mocks/SecondStepComponents/StreetInput.component";
+import ZipCode from "./mocks/SecondStepComponents/ZipCodeInput.component";
 import {showTab, currentTab, nextPrev} from './mocks/stepper'
 
 import {connect} from "react-redux";
@@ -9,9 +12,7 @@ import {connect} from "react-redux";
 class App extends Component {
 
     componentDidMount() {
-        // document.getElementById('firstStepSubmitButton').disabled = true
-        showTab(currentTab) // Display the current tab
-
+        showTab(currentTab)
     }
 
     render() {
@@ -24,7 +25,12 @@ class App extends Component {
                     <PhoneInput/>
                 </div>
                 <div className={'tab'}>
-                    <span>something something</span>
+                    <CityInput/>
+                    <StreetInput/>
+                    <ZipCode/>
+                </div>
+                <div className={'tab'}>
+                    <span>Confirm</span>
                 </div>
 
                 < div
@@ -49,7 +55,6 @@ class App extends Component {
                 </div>
 
                 <div style={{textAlign: 'center', marginTop: '40px'}}>
-                    <span className={"step"}></span>
                     <span className={"step"}></span>
                     <span className={"step"}></span>
                     <span className={"step"}></span>

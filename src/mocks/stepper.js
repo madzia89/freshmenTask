@@ -35,7 +35,7 @@ export const validateForm = () => {
     const firstStepEmail = store.getState().firstStep.email
     const firstStepPhone = store.getState().firstStep.phoneNumber
     if ((firstStepName !== '') && (firstStepEmail !== '') && (firstStepPhone !== '')) {
-        return document.getElementsByClassName("step")[currentTab].className += " finish"
+        return document.getElementsByClassName("step")[0].className += 1
     }
     else if (firstStepName === '') {
         return alert('fill your name')
@@ -45,6 +45,21 @@ export const validateForm = () => {
     }
     else if (firstStepPhone === '') {
         return alert('fill your phone number')
+    }
+    const secondStepCity = store.getState().secondStep.city
+    const secondStepStreet = store.getState().secondStep.street
+    const secondStepZipCode = store.getState().secondStep.zipCode
+    if ((secondStepCity !== '') && (secondStepStreet !== '') && (secondStepZipCode !== '')) {
+        return document.getElementsByClassName("step")[1].className += 1
+    }
+    else if (secondStepCity === '') {
+        return alert('fill your city')
+    }
+    else if (secondStepStreet === '') {
+        return alert('fill your street')
+    }
+    else if (secondStepZipCode === '') {
+        return alert('fill your zip code')
     }
 }
 

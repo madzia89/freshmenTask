@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import _is from 'is_js'
-import {savePhoneNumber} from '../state/firstStep'
+import {savePhoneNumber} from '../../state/firstStep'
 import {connect} from "react-redux";
 
 class PhoneInput extends Component {
@@ -26,18 +26,22 @@ class PhoneInput extends Component {
                     onBlur={() => {
                         const numberToState = this.state.phoneValue.replace(/ /g, "")
                         const ifValid = _is[this.state.type](numberToState * 1)
-                        if (ifValid === true) {
+                        if ((ifValid === true) &&
+                            (ifValid !== 0) &&
+                            (numberToState.length >= 9)
+                        ) {
                             this.setState({
                                 isPhoneValid: true,
                                 className: 'valid',
                                 phoneValue: numberToState * 1
                             })
-                            this.props.savePhoneNumber(this.state.phoneValue)
+                            this.props.savePhoneNumber(numberToState * 1)
                         } else {
                             this.setState({
                                 isPhoneValid: false,
                                 className: 'invalid'
                             })
+                            this.props.savePhoneNumber('')
                         }
                     }}
                 />
