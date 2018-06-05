@@ -5,6 +5,7 @@ import PhoneInput from "./mocks/FirstStepComponents/PhoneInput.component";
 import CityInput from "./mocks/SecondStepComponents/CityInput.component";
 import StreetInput from "./mocks/SecondStepComponents/StreetInput.component";
 import ZipCode from "./mocks/SecondStepComponents/ZipCodeInput.component";
+import ConfirmComponent from "./mocks/ConfirmStep/Confirm.component";
 import {showTab, currentTab, nextPrev} from './mocks/stepper'
 
 import {connect} from "react-redux";
@@ -30,9 +31,8 @@ class App extends Component {
                     <ZipCode/>
                 </div>
                 <div className={'tab'}>
-                    <span>Confirm</span>
+                    <ConfirmComponent/>
                 </div>
-
                 < div
                     style={{overflow: 'auto'}}>
                     < div
@@ -58,7 +58,6 @@ class App extends Component {
                     <span className={"step"}></span>
                     <span className={"step"}></span>
                     <span className={"step"}></span>
-
                 </div>
             </div>
 

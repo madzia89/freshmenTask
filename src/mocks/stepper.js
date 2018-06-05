@@ -1,5 +1,3 @@
-import {store} from '../store'
-
 export let currentTab = 0;
 
 export const showTab = (n) => {
@@ -24,43 +22,27 @@ export const nextPrev = (n) => {
     x[currentTab].style.display = "none"
     currentTab = currentTab + n
     if (currentTab >= x.length) {
-        document.getElementById("regForm").submit()
+        alert('well done!')
         return false
     }
     showTab(currentTab)
 }
 
 export const validateForm = () => {
-    const firstStepName = store.getState().firstStep.names
-    const firstStepEmail = store.getState().firstStep.email
-    const firstStepPhone = store.getState().firstStep.phoneNumber
-    if ((firstStepName !== '') && (firstStepEmail !== '') && (firstStepPhone !== '')) {
-        return document.getElementsByClassName("step")[0].className += 1
+    let arrayOfTabs, inputs, i, valid = true
+    arrayOfTabs = document.getElementsByClassName("tab")
+    inputs = arrayOfTabs[currentTab].getElementsByTagName("input")
+    for (i = 0; i < inputs.length; i++) {
+        if ((inputs[i].className === "") || (inputs[i].className === "invalid")) {
+            valid = false
+        }
     }
-    else if (firstStepName === '') {
-        return alert('fill your name')
+    if (valid) {
+        document.getElementsByClassName("step")[currentTab].className += " finish"
     }
-    else if (firstStepEmail === '') {
-        return alert('fill your email')
-    }
-    else if (firstStepPhone === '') {
-        return alert('fill your phone number')
-    }
-    const secondStepCity = store.getState().secondStep.city
-    const secondStepStreet = store.getState().secondStep.street
-    const secondStepZipCode = store.getState().secondStep.zipCode
-    if ((secondStepCity !== '') && (secondStepStreet !== '') && (secondStepZipCode !== '')) {
-        return document.getElementsByClassName("step")[1].className += 1
-    }
-    else if (secondStepCity === '') {
-        return alert('fill your city')
-    }
-    else if (secondStepStreet === '') {
-        return alert('fill your street')
-    }
-    else if (secondStepZipCode === '') {
-        return alert('fill your zip code')
-    }
+    return valid
+
+
 }
 
 
