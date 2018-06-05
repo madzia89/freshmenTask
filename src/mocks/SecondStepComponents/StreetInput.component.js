@@ -8,7 +8,6 @@ class StreetInput extends Component {
 
     state = {
         streetValue: '',
-        isStreetValid: false,
         error: 'address is incorrect',
         type: 'street',
         classNameForCSS: ''
@@ -30,13 +29,11 @@ class StreetInput extends Component {
                             (this.state.streetValue !== '') &&
                             (this.state.streetValue.length > 2)) {
                             this.setState({
-                                isStreetValid: true,
                                 classNameForCSS: 'valid'
                             })
                             this.props.saveStreet(this.state.streetValue)
                         } else {
                             this.setState({
-                                isStreetValid: false,
                                 classNameForCSS: 'invalid'
                             })
                             this.props.saveStreet('')

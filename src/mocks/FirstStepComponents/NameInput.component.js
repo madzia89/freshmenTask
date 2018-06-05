@@ -7,7 +7,6 @@ class NameInput extends Component {
 
     state = {
         nameValue: '',
-        isNameValid: false,
         error: 'name is incorrect',
         type: 'string',
         classNameForCSS: ''
@@ -30,13 +29,11 @@ class NameInput extends Component {
                             (this.state.nameValue.length > 2)
                         ) {
                             this.setState({
-                                isNameValid: true,
                                 classNameForCSS: 'valid'
                             })
                             this.props.saveName(this.state.nameValue)
                         } else {
                             this.setState({
-                                isNameValid: false,
                                 classNameForCSS: 'invalid'
                             })
                             this.props.saveName('')

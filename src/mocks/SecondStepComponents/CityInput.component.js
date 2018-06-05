@@ -8,7 +8,6 @@ class CityInput extends Component {
 
     state = {
         cityValue: '',
-        isCityValid: false,
         error: 'city is incorrect',
         type: 'city',
         classNameForCSS: ''
@@ -30,13 +29,11 @@ class CityInput extends Component {
                             (this.state.cityValue !== '') &&
                             (this.state.cityValue.length > 2)) {
                             this.setState({
-                                isCityValid: true,
                                 classNameForCSS: 'valid'
                             })
                             this.props.saveCity(this.state.cityValue)
                         } else {
                             this.setState({
-                                isCityValid: false,
                                 classNameForCSS: 'invalid'
                             })
                             this.props.saveCity('')

@@ -8,7 +8,6 @@ class EmailInput extends Component {
 
     state = {
         emailValue: '',
-        isEmailValid: false,
         error: 'email is incorrect',
         type: 'email',
         classNameForCSS: ''
@@ -28,13 +27,11 @@ class EmailInput extends Component {
                         const ifValid = _is[this.state.type](this.state.emailValue)
                         if (ifValid === true) {
                             this.setState({
-                                isEmailValid: true,
                                 classNameForCSS: 'valid'
                             })
                             this.props.saveEmail(this.state.emailValue)
                         } else {
                             this.setState({
-                                isEmailValid: false,
                                 classNameForCSS: 'invalid'
                             })
                             this.props.saveEmail('')

@@ -30,13 +30,11 @@ class ZipCodeInput extends Component {
                             this.state.zipCodeValue.length === 6
                         ) {
                             this.setState({
-                                isZipCodeValid: true,
                                 classNameForCSS: 'valid'
                             })
                             this.props.saveZipCode(this.state.zipCodeValue)
                         } else {
                             this.setState({
-                                isZipCodeValid: false,
                                 classNameForCSS: 'invalid'
                             })
                             this.props.saveZipCode('')

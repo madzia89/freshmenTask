@@ -7,7 +7,6 @@ class PhoneInput extends Component {
 
     state = {
         phoneValue: '',
-        isPhoneValid: false,
         error: 'phone number is incorrect',
         type: 'number',
         classNameForCSS: ''
@@ -31,14 +30,12 @@ class PhoneInput extends Component {
                             (numberToState.length >= 9)
                         ) {
                             this.setState({
-                                isPhoneValid: true,
                                 classNameForCSS: 'valid',
                                 phoneValue: numberToState * 1
                             })
                             this.props.savePhoneNumber(numberToState * 1)
                         } else {
                             this.setState({
-                                isPhoneValid: false,
                                 classNameForCSS: 'invalid'
                             })
                             this.props.savePhoneNumber('')
