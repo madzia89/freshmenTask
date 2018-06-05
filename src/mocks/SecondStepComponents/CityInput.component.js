@@ -11,7 +11,7 @@ class CityInput extends Component {
         isCityValid: false,
         error: 'city is incorrect',
         type: 'city',
-        className: ''
+        classNameForCSS: ''
     }
 
     render() {
@@ -19,7 +19,7 @@ class CityInput extends Component {
             <div>
                 <h2>Type your city</h2>
                 <input
-                    className={`${this.state.className}`}
+                    className={`${this.state.classNameForCSS}`}
                     value={this.state.cityValue}
                     onChange={(event) => {
                         this.setState({cityValue: event.target.value})
@@ -31,13 +31,13 @@ class CityInput extends Component {
                             (this.state.cityValue.length > 2)) {
                             this.setState({
                                 isCityValid: true,
-                                className: 'valid'
+                                classNameForCSS: 'valid'
                             })
                             this.props.saveCity(this.state.cityValue)
                         } else {
                             this.setState({
                                 isCityValid: false,
-                                className: 'invalid'
+                                classNameForCSS: 'invalid'
                             })
                             this.props.saveCity('')
 

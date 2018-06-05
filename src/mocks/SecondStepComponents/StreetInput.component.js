@@ -11,7 +11,7 @@ class StreetInput extends Component {
         isStreetValid: false,
         error: 'address is incorrect',
         type: 'street',
-        className: ''
+        classNameForCSS: ''
     }
 
     render() {
@@ -19,7 +19,7 @@ class StreetInput extends Component {
             <div>
                 <h2>Type your street</h2>
                 <input
-                    className={`${this.state.className}`}
+                    className={`${this.state.classNameForCSS}`}
                     value={this.state.streetValue}
                     onChange={(event) => {
                         this.setState({streetValue: event.target.value})
@@ -31,13 +31,13 @@ class StreetInput extends Component {
                             (this.state.streetValue.length > 2)) {
                             this.setState({
                                 isStreetValid: true,
-                                className: 'valid'
+                                classNameForCSS: 'valid'
                             })
                             this.props.saveStreet(this.state.streetValue)
                         } else {
                             this.setState({
                                 isStreetValid: false,
-                                className: 'invalid'
+                                classNameForCSS: 'invalid'
                             })
                             this.props.saveStreet('')
 

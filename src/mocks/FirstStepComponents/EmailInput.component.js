@@ -11,7 +11,7 @@ class EmailInput extends Component {
         isEmailValid: false,
         error: 'email is incorrect',
         type: 'email',
-        className: ''
+        classNameForCSS: ''
     }
 
     render() {
@@ -19,7 +19,7 @@ class EmailInput extends Component {
             <div>
                 <h2>type your email</h2>
                 <input
-                    className={`${this.state.className}`}
+                    className={`${this.state.classNameForCSS}`}
                     value={this.state.emailValue}
                     onChange={(event) => {
                         this.setState({emailValue: event.target.value})
@@ -29,13 +29,13 @@ class EmailInput extends Component {
                         if (ifValid === true) {
                             this.setState({
                                 isEmailValid: true,
-                                className: 'valid'
+                                classNameForCSS: 'valid'
                             })
                             this.props.saveEmail(this.state.emailValue)
                         } else {
                             this.setState({
                                 isEmailValid: false,
-                                className: 'invalid'
+                                classNameForCSS: 'invalid'
                             })
                             this.props.saveEmail('')
 

@@ -10,7 +10,7 @@ class ZipCodeInput extends Component {
         isZipCodeValid: false,
         error: 'zip code is incorrect',
         type: 'zip code',
-        className: ''
+        classNameForCSS: ''
     }
 
     render() {
@@ -18,7 +18,7 @@ class ZipCodeInput extends Component {
             <div>
                 <h2>Type your zip code</h2>
                 <input
-                    className={`${this.state.className}`}
+                    className={`${this.state.classNameForCSS}`}
                     value={this.state.zipCodeValue}
                     onChange={(event) => {
                         this.setState({zipCodeValue: event.target.value})
@@ -28,16 +28,16 @@ class ZipCodeInput extends Component {
                         if ((zipCodeRegExp.test(this.state.zipCodeValue)) &&
                             (this.state.zipCodeValue !== '') &&
                             this.state.zipCodeValue.length === 6
-                        ){
+                        ) {
                             this.setState({
                                 isZipCodeValid: true,
-                                className: 'valid'
+                                classNameForCSS: 'valid'
                             })
                             this.props.saveZipCode(this.state.zipCodeValue)
                         } else {
                             this.setState({
                                 isZipCodeValid: false,
-                                className: 'invalid'
+                                classNameForCSS: 'invalid'
                             })
                             this.props.saveZipCode('')
 

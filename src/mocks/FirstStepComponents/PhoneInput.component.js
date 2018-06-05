@@ -10,7 +10,7 @@ class PhoneInput extends Component {
         isPhoneValid: false,
         error: 'phone number is incorrect',
         type: 'number',
-        className: ''
+        classNameForCSS: ''
     }
 
     render() {
@@ -18,7 +18,7 @@ class PhoneInput extends Component {
             <div>
                 <h2>type your phone number</h2>
                 <input
-                    className={`${this.state.className}`}
+                    className={`${this.state.classNameForCSS}`}
                     value={this.state.phoneValue}
                     onChange={(event) => {
                         this.setState({phoneValue: event.target.value})
@@ -32,14 +32,14 @@ class PhoneInput extends Component {
                         ) {
                             this.setState({
                                 isPhoneValid: true,
-                                className: 'valid',
+                                classNameForCSS: 'valid',
                                 phoneValue: numberToState * 1
                             })
                             this.props.savePhoneNumber(numberToState * 1)
                         } else {
                             this.setState({
                                 isPhoneValid: false,
-                                className: 'invalid'
+                                classNameForCSS: 'invalid'
                             })
                             this.props.savePhoneNumber('')
                         }

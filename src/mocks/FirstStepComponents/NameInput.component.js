@@ -10,7 +10,7 @@ class NameInput extends Component {
         isNameValid: false,
         error: 'name is incorrect',
         type: 'string',
-        className: ''
+        classNameForCSS: ''
     }
 
     render() {
@@ -18,7 +18,7 @@ class NameInput extends Component {
             <div>
                 <h2>type your name</h2>
                 <input
-                    className={`${this.state.className}`}
+                    className={`${this.state.classNameForCSS}`}
                     value={this.state.nameValue}
                     onChange={(event) => {
                         this.setState({nameValue: event.target.value})
@@ -31,13 +31,13 @@ class NameInput extends Component {
                         ) {
                             this.setState({
                                 isNameValid: true,
-                                className: 'valid'
+                                classNameForCSS: 'valid'
                             })
                             this.props.saveName(this.state.nameValue)
                         } else {
                             this.setState({
                                 isNameValid: false,
-                                className: 'invalid'
+                                classNameForCSS: 'invalid'
                             })
                             this.props.saveName('')
                         }
