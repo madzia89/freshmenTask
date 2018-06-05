@@ -1,10 +1,14 @@
 import React, {Component} from 'react'
+
 import EmailInput from "./mocks/FirstStepComponents/EmailInput.component";
 import NameInput from "./mocks/FirstStepComponents/NameInput.component";
 import PhoneInput from "./mocks/FirstStepComponents/PhoneInput.component";
+
 import CityInput from "./mocks/SecondStepComponents/CityInput.component";
 import StreetInput from "./mocks/SecondStepComponents/StreetInput.component";
+import HomeNumberInput from "./mocks/SecondStepComponents/HomeNumberInput.component";
 import ZipCode from "./mocks/SecondStepComponents/ZipCodeInput.component";
+
 import ConfirmComponent from "./mocks/ConfirmStep/Confirm.component";
 import {showTab, currentTab, nextPrev} from './mocks/stepper'
 
@@ -17,20 +21,21 @@ class App extends Component {
     }
 
     render() {
-
         return (
             <div>
-                <div className={'tab'}>
+                <h1>aaaaaaaaaaaaaa</h1>
+                <div className={'tabForValid tab'}>
                     <NameInput/>
                     <EmailInput/>
                     <PhoneInput/>
                 </div>
-                <div className={'tab'}>
+                <div className={'tabForValid tab'}>
                     <CityInput/>
                     <StreetInput/>
+                    <HomeNumberInput/>
                     <ZipCode/>
                 </div>
-                <div className={'tab'}>
+                <div className={'tabForValid tab'}>
                     <ConfirmComponent/>
                 </div>
                 < div

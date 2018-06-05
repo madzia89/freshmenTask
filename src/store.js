@@ -5,7 +5,7 @@ import secondStep from './state/secondStep'
 
 export const reducer = combineReducers({
     firstStep,
-    secondStep
+    secondStep,
 })
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 

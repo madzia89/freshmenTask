@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import _is from 'is_js'
 import {saveEmail} from '../../state/firstStep'
-import {connect} from "react-redux";
+import {connect} from "react-redux"
 
 
 class EmailInput extends Component {
@@ -35,7 +35,6 @@ class EmailInput extends Component {
                                 classNameForCSS: 'invalid'
                             })
                             this.props.saveEmail('')
-
                         }
                     }}
                 />

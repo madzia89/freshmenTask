@@ -1,27 +1,33 @@
 export let currentTab = 0;
+// if (typeof currentTab === undefined) {
+//     document.getElementById("nextBtn").style.display = "none"
+//     document.getElementById("prevBtn").style.display = "none"
+// } fixme
 
-export const showTab = (n) => {
-    const x = document.getElementsByClassName("tab")
-    x[n].style.display = "block"
-    if (n === 0) {
+export const showTab = (currentTab) => {
+    const arrayOfTabs = document.getElementsByClassName("tab")
+    arrayOfTabs[currentTab].style.display = "block"
+    if (currentTab === 0) {
         document.getElementById("prevBtn").style.display = "none"
     } else {
         document.getElementById("prevBtn").style.display = "inline"
     }
-    if (n === (x.length - 1)) {
-        document.getElementById("nextBtn").innerHTML = "Submit"
+    if (currentTab === (arrayOfTabs.length - 1)) {
+        document.getElementById("nextBtn").innerHTML = "Confirm"
     } else {
         document.getElementById("nextBtn").innerHTML = "Next"
     }
-    fixStepIndicator(n)
+
+    fixStepIndicator(currentTab)
+    console.log(currentTab)
 }
 
 export const nextPrev = (n) => {
-    const x = document.getElementsByClassName("tab")
+    const arrayOfTabs = document.getElementsByClassName("tab")
     if (n === 1 && !validateForm()) return false
-    x[currentTab].style.display = "none"
+    arrayOfTabs[currentTab].style.display = "none"
     currentTab = currentTab + n
-    if (currentTab >= x.length) {
+    if (currentTab === arrayOfTabs.length) {
         alert('well done!')
         return false
     }
@@ -30,7 +36,7 @@ export const nextPrev = (n) => {
 
 export const validateForm = () => {
     let arrayOfTabs, inputs, i, valid = true
-    arrayOfTabs = document.getElementsByClassName("tab")
+    arrayOfTabs = document.getElementsByClassName("tabForValid")
     inputs = arrayOfTabs[currentTab].getElementsByTagName("input")
     for (i = 0; i < inputs.length; i++) {
         if ((inputs[i].className === "") || (inputs[i].className === "invalid")) {
@@ -46,10 +52,10 @@ export const validateForm = () => {
 }
 
 
-export const fixStepIndicator = (n) => {
-    let i, x = document.getElementsByClassName("step")
-    for (i = 0; i < x.length; i++) {
-        x[i].className = x[i].className.replace(" active", "")
+export const fixStepIndicator = (currentTab) => {
+    let currentStep, arrayOfSteps = document.getElementsByClassName("step")
+    for (currentStep = 0; currentStep < arrayOfSteps.length; currentStep++) {
+        arrayOfSteps[currentStep].className = arrayOfSteps[currentStep].className.replace(" active", "")
     }
-    x[n].className += " active"
+    arrayOfSteps[currentTab].className += " active"
 }
