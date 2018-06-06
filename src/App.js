@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {Grid, Row, Col} from 'react-flexbox-grid'
 
 import EmailInput from "./mocks/FirstStepComponents/EmailInput.component";
 import NameInput from "./mocks/FirstStepComponents/NameInput.component";
@@ -22,49 +23,78 @@ class App extends Component {
 
     render() {
         return (
-            <div>
-                <h1>aaaaaaaaaaaaaa</h1>
-                <div className={'tabForValid tab'}>
-                    <NameInput/>
-                    <EmailInput/>
-                    <PhoneInput/>
-                </div>
-                <div className={'tabForValid tab'}>
-                    <CityInput/>
-                    <StreetInput/>
-                    <HomeNumberInput/>
-                    <ZipCode/>
-                </div>
-                <div className={'tabForValid tab'}>
-                    <ConfirmComponent/>
-                </div>
-                < div
-                    style={{overflow: 'auto'}}>
-                    < div
-                        style={{float: 'right'}}>
-                        <button
-                            type="button"
-                            id="prevBtn"
-                            onClick={() => nextPrev(-1)}
-                        >
-                            Previous
-                        </button>
-                        <button
-                            type="button"
-                            id="nextBtn"
-                            onClick={() => nextPrev(1)}
-                        >
-                            Next
-                        </button>
+            <Grid className={'mainConatiner'}>
+                <Row className={'containerForMainHeading'}>
+                    <Col xs>
+                        <h1 className={'formHeading'}>DA FORM</h1>
+                    </Col>
+                </Row>
+                <Grid className={'containerForInputs tabForValid tab'}>
+                    <div className={''}>
+                        <Row>
+                            <NameInput/>
+                        </Row>
+                        <Row>
+                            <EmailInput/>
+                        </Row>
+                        <Row>
+                            <PhoneInput/>
+                        </Row>
                     </div>
-                </div>
+                </Grid>
+                <Grid className={'containerForInputs tabForValid tab'}>
+                    <div>
+                        <Row>
+                            <CityInput/>
+                        </Row>
+                        <Row>
+                            <StreetInput/>
+                        </Row>
+                        <Row>
+                            <HomeNumberInput/>
+                        </Row>
+                        <Row>
+                            <ZipCode/>
+                        </Row>
 
-                <div style={{textAlign: 'center', marginTop: '40px'}}>
-                    <span className={"step"}></span>
-                    <span className={"step"}></span>
-                    <span className={"step"}></span>
-                </div>
-            </div>
+                    </div>
+                </Grid>
+                <Grid className={'containerForInputs tabForValid tab'}>
+                    <div>
+                        <ConfirmComponent/>
+                    </div>
+                </Grid>
+                <Grid>
+                    <div
+                        style={{overflow: 'auto'}}>
+                        <div
+                            style={{float: 'right'}}>
+                            <button
+                                type="button"
+                                id="prevBtn"
+                                onClick={() => nextPrev(-1)}
+                            >
+                                Previous
+                            </button>
+                            <button
+                                type="button"
+                                id="nextBtn"
+                                onClick={() => nextPrev(1)}
+                            >
+                                Next
+                            </button>
+                        </div>
+
+                    </div>
+                </Grid>
+                <Grid>
+                    <div style={{textAlign: 'center', marginTop: '40px'}}>
+                        <span className={"step"}></span>
+                        <span className={"step"}></span>
+                        <span className={"step"}></span>
+                    </div>
+                </Grid>
+            </Grid>
 
         )
     }

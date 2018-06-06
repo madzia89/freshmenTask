@@ -1,15 +1,65 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: sans-serif;
+    font-family: 'Georgia';
+    background-color: #E91E63;
 }
 
-.invalid {
-    background-color: red;
+.containerForMainHeading {
+    background-color: #AD1457;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    box-shadow: rgba(0, 0, 0, 0.12) 0 1px 6px, rgba(0, 0, 0, 0.12) 0 1px 4px;
+    border-radius: 2px;
+}
+
+.formHeading {
+    font-size: 36px;
+    color: white;
+    text-align: center;
+}
+
+.containerForInputs {
+    background-color: #F8BBD0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    box-shadow: rgba(0, 0, 0, 0.12) 0 1px 6px, rgba(0, 0, 0, 0.12) 0 1px 4px;
+    border-radius: 2px;
+    margin: 10px;
+}
+
+.singleContainer {
+    margin: 0;
+}
+
+.headings {
+    text-align: center;
+    font-family: 'Arial';
+    color: #212121;
+}
+
+input {
+    width: 70vw;
+    margin: auto;
+    padding: 5px 10px;
+    border: none;
+    border-bottom: solid 3px white;
+    border-radius: 2px;
+    transition: border 0.6s ease-out;
+}
+
+input:focus {
+    border-bottom: solid 3px #AD1457;
 }
 
 .valid {
-    background-color: green;
+    background: white url("mocks/check-circle.png") no-repeat right;
+    background-size: 20px;
+}
+
+.invalid {
+    background: white url("mocks/exclamation-circle.png") no-repeat right;
+    background-size: 20px;
 }
 
 .tab {
@@ -33,4 +83,19 @@ body {
 
 .step.finish {
     background-color: #4CAF50;
+}
+
+.summaryHeading {
+    font-weight: bold;
+    color: #37474F;
+    text-align: center;
+}
+
+.summaryRow {
+    font-weight: bold;
+    color: #37474F;
+}
+
+td {
+    border-bottom: 1px solid #263238;
 }

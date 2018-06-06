@@ -1,8 +1,4 @@
 export let currentTab = 0;
-// if (typeof currentTab === undefined) {
-//     document.getElementById("nextBtn").style.display = "none"
-//     document.getElementById("prevBtn").style.display = "none"
-// } fixme
 
 export const showTab = (currentTab) => {
     const arrayOfTabs = document.getElementsByClassName("tab")
@@ -29,6 +25,8 @@ export const nextPrev = (n) => {
     currentTab = currentTab + n
     if (currentTab === arrayOfTabs.length) {
         alert('well done!')
+        document.getElementById("nextBtn").style.display = "none"
+        document.getElementById("prevBtn").style.display = "none"
         return false
     }
     showTab(currentTab)
