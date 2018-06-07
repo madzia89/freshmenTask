@@ -1,10 +1,9 @@
 import React, {Component} from 'react'
 import {Grid, Row} from 'react-flexbox-grid'
-import _is from 'is_js'
+// import _is from 'is_js'
 import {saveBDay} from '../../state/firstStep'
 import {connect} from "react-redux"
-import {snackbarFunction, fullNowDate} from '../utils'
-
+import {thatFunc} from '../utils'
 
 class BirthDayInput extends Component {
 
@@ -25,35 +24,10 @@ class BirthDayInput extends Component {
                 </Row>
                 <Grid>
                     <Row center="xs">
-                        <input
-                            type={'date'}
-                            max={fullNowDate}
-                            className={`${this.state.classNameForCSS}`}
-                            value={this.state.birthDayValue}
-                            onChange={(event) => {
-                                this.setState({birthDayValue: event.target.value})
-                            }}
-                            onBlur={() => {
-                                const ifValid = _is[this.state.type](this.state.birthDayValue)
-                                if (this.state.birthDayValue.length === 10) {
-                                    this.setState({
-                                        classNameForCSS: 'valid',
-                                        error: ''
-                                    })
-                                    this.props.saveBDay(this.state.birthDayValue)
-                                } else if (this.state.birthDayValue === '') {
-                                    this.setState({classNameForCSS: ''})
-                                } else {
-                                    this.setState({
-                                        classNameForCSS: 'invalid',
-                                        error: 'date of birth is incorrect'
-                                    }, () => {
-                                        snackbarFunction(this.state.error)
-                                    })
-                                    this.props.saveBDay('')
-                                }
-                            }}
-                        />
+                        {thatFunc()}
+                        <input id={'calendarInput'}>
+                        </input>
+
                     </Row>
                 </Grid>
             </Grid>

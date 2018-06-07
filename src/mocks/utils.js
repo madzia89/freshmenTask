@@ -22,5 +22,14 @@ export const snackbarFunction = (propser) => {
 }
 
 
+export const thatFunc = () => {
+    const momentAsObject = moment() //to remove when isn't needed
+    const monthNow = moment(Date.now()).format('M')
+    const nextMonth = moment(Date.now()).add(1, 'months').format('M')
+    const arrayOfAllMonths = moment()._locale._months
+    const thisMonthFoundInArrayOfMonths = arrayOfAllMonths[monthNow]
 
+    console.log(monthNow, nextMonth)
+
+}
 

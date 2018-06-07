@@ -53,6 +53,10 @@ input:focus {
     border-bottom: solid 3px #AD1457;
 }
 
+.calendarInput[type='month'] {
+    background-color: #AD1457;
+}
+
 .valid {
     background: white url("mocks/check-circle.png") no-repeat right;
     background-size: 20px;

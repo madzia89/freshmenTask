@@ -104,6 +104,7 @@ class App extends Component {
                     </div>
                 </Grid>
                 <span id={"snackbar"}></span>
+
             </Grid>
 
         )

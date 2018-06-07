@@ -15,7 +15,6 @@ export const showTab = (currentTab) => {
     }
 
     fixStepIndicator(currentTab)
-    console.log(currentTab)
 }
 
 export const nextPrev = (n) => {
