@@ -3,6 +3,7 @@ import {Grid, Row} from 'react-flexbox-grid'
 import _is from 'is_js'
 import {saveEmail} from '../../state/firstStep'
 import {connect} from "react-redux"
+import {snackbarFunction} from '../utils'
 
 
 class EmailInput extends Component {
@@ -11,7 +12,7 @@ class EmailInput extends Component {
         emailValue: '',
         error: '',
         type: 'email',
-        classNameForCSS: ''
+        classNameForCSS: '',
     }
 
     render() {
@@ -19,7 +20,7 @@ class EmailInput extends Component {
             <Grid>
                 <Row center="xs">
                     <h3 className={'headings'}>
-                        type your email
+                        EMAIL
                     </h3>
                 </Row>
                 <Grid>
@@ -40,22 +41,23 @@ class EmailInput extends Component {
                                     })
                                     this.props.saveEmail(this.state.emailValue)
                                 } else if (this.state.emailValue === '') {
-                                    return
+                                    this.setState({classNameForCSS: ''})
+
                                 } else {
                                     this.setState({
                                         classNameForCSS: 'invalid',
                                         error: 'email is incorrect'
+                                    }, () => {
+                                        snackbarFunction(this.state.error)
                                     })
                                     this.props.saveEmail('')
                                 }
                             }}
                         />
                     </Row>
-                    <Row center="xs">
-                        <p className={'errors'}>{this.state.error}</p>
-                    </Row>
                 </Grid>
             </Grid>
+
         )
     }
 }

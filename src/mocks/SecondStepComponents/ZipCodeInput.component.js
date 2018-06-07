@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {Grid, Row} from 'react-flexbox-grid'
 import {saveZipCode} from '../../state/secondStep'
 import {connect} from "react-redux";
+import {snackbarFunction} from "../utils";
 
 
 class ZipCodeInput extends Component {
@@ -19,7 +20,7 @@ class ZipCodeInput extends Component {
             <Grid>
                 <Row center="xs">
                     <h3 className={'headings'}>
-                        Type your zip code
+                        ZIP-CODE
                     </h3>
                 </Row>
                 <Grid>
@@ -41,18 +42,19 @@ class ZipCodeInput extends Component {
                                         error: ''
                                     })
                                     this.props.saveZipCode(this.state.zipCodeValue)
+                                } else if (this.state.zipCodeValue.length < 1) {
+                                    return this.setState({classNameForCSS: ''})
                                 } else {
                                     this.setState({
                                         classNameForCSS: 'invalid',
-                                        error: 'zip code is incorrect, eg. XX-XXX'
+                                        error: 'zip code eg. XX-XXX'
+                                    }, () => {
+                                        snackbarFunction(this.state.error)
                                     })
                                     this.props.saveZipCode('')
                                 }
                             }}
                         />
-                    </Row>
-                    <Row center="xs">
-                        <p className={'errors'}>{this.state.error}</p>
                     </Row>
                 </Grid>
             </Grid>

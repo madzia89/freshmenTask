@@ -3,6 +3,7 @@ import {Grid, Row} from 'react-flexbox-grid'
 import _is from 'is_js'
 import {saveHomeNumber} from '../../state/secondStep'
 import {connect} from "react-redux";
+import {snackbarFunction} from "../utils";
 
 
 class HomeNumberInput extends Component {
@@ -19,7 +20,7 @@ class HomeNumberInput extends Component {
             <Grid>
                 <Row center="xs">
                     <h3 className={'headings'}>
-                        Type your home number
+                        HOME
                     </h3>
                 </Row>
                 <Grid>
@@ -40,19 +41,20 @@ class HomeNumberInput extends Component {
                                         error: ''
                                     })
                                     this.props.saveHomeNumber(this.state.homeNumberValue)
+                                } else if ((ifValid === true) &&
+                                    (this.state.homeNumberValue.length < 1)) {
+                                    return this.setState({classNameForCSS: ''})
                                 } else {
                                     this.setState({
                                         classNameForCSS: 'invalid',
                                         error: 'number is incorrect'
+                                    }, () => {
+                                        snackbarFunction(this.state.error)
                                     })
                                     this.props.saveHomeNumber('')
-
                                 }
                             }}
                         />
-                    </Row>
-                    <Row center="xs">
-                        <p className={'errors'}>{this.state.error}</p>
                     </Row>
                 </Grid>
             </Grid>

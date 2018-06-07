@@ -3,6 +3,7 @@ import {Grid, Row} from 'react-flexbox-grid'
 import _is from 'is_js'
 import {saveName} from '../../state/firstStep'
 import {connect} from "react-redux";
+import {searchPolishSignsAndHyphen, snackbarFunction} from "../utils"
 
 class NameInput extends Component {
 
@@ -18,7 +19,7 @@ class NameInput extends Component {
             <Grid>
                 <Row center="xs">
                     <h3 className={'headings'}>
-                        type your name
+                        NAME
                     </h3>
                 </Row>
                 <Grid>
@@ -33,6 +34,7 @@ class NameInput extends Component {
                                 const ifValid = _is[this.state.type](this.state.nameValue)
                                 if ((ifValid === true) &&
                                     (this.state.nameValue !== '') &&
+                                    (searchPolishSignsAndHyphen(this.state.nameValue)) &&
                                     (this.state.nameValue.length > 2)
                                 ) {
                                     this.setState({
@@ -42,19 +44,19 @@ class NameInput extends Component {
                                     this.props.saveName(this.state.nameValue)
                                 } else if ((ifValid === true) &&
                                     (this.state.nameValue.length < 1)) {
-                                    return
+                                    return this.setState({classNameForCSS: ''})
                                 } else {
                                     this.setState({
-                                        classNameForCSS: 'invalid',
-                                        error: 'name is incorrect'
-                                    })
+                                            classNameForCSS: 'invalid',
+                                            error: 'name is incorrect'
+                                        }, () => {
+                                            snackbarFunction(this.state.error)
+                                        }
+                                    )
                                     this.props.saveName('')
                                 }
                             }}
                         />
-                    </Row>
-                    <Row center="xs">
-                        <p className={'errors'}>{this.state.error}</p>
                     </Row>
                 </Grid>
             </Grid>

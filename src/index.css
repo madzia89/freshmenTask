@@ -35,12 +35,13 @@ body {
 .headings {
     text-align: center;
     font-family: 'Arial';
-    color: #212121;
+    font-size: 16px;
+    color: #424242;
 }
 
 input {
     width: 70vw;
-    margin: auto;
+    margin: auto 0px 20px;
     padding: 5px 10px;
     border: none;
     border-bottom: solid 3px white;
@@ -62,15 +63,116 @@ input:focus {
     background-size: 20px;
 }
 
+#snackbar {
+    visibility: hidden;
+    min-width: 230px;
+    margin-left: -125px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 2px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    bottom: 15px;
+    font-size: 20px;
+}
+
+#snackbar.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+    from {
+        bottom: 0;
+        opacity: 0;
+    }
+    to {
+        bottom: 30px;
+        opacity: 1;
+    }
+}
+
+@keyframes fadein {
+    from {
+        bottom: 0;
+        opacity: 0;
+    }
+    to {
+        bottom: 30px;
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes fadeout {
+    from {
+        bottom: 30px;
+        opacity: 1;
+    }
+    to {
+        bottom: 0;
+        opacity: 0;
+    }
+}
+
+@keyframes fadeout {
+    from {
+        bottom: 30px;
+        opacity: 1;
+    }
+    to {
+        bottom: 0;
+        opacity: 0;
+    }
+}
+
 .tab {
     display: none;
+}
+
+.nextPrevButton {
+    display: inline-block;
+    border-radius: 4px;
+    background-color: #FAFAFA;
+    border: none;
+    color: #AD1457;
+    font-weight: bold;
+    text-align: center;
+    font-size: 16px;
+    padding: 10px 5px;
+    width: 80px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.nextPrevButton .spanForButtons {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+
+.nextPrevButton .spanForButtons:after {
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    transition: 0.5s;
+}
+
+.nextPrevButton:hover .spanForButtons:after {
+    opacity: 1;
+    right: 0;
 }
 
 .step {
     height: 15px;
     width: 15px;
     margin: 0 2px;
-    background-color: #bbbbbb;
+    background-color: #AD1457;
     border: none;
     border-radius: 50%;
     display: inline-block;
@@ -82,7 +184,7 @@ input:focus {
 }
 
 .step.finish {
-    background-color: #4CAF50;
+    background-color: #C51162;
 }
 
 .summaryHeading {
@@ -98,4 +200,17 @@ input:focus {
 
 td {
     border-bottom: 1px solid #263238;
+    padding: 10px 15px;
+}
+
+table {
+    border-spacing: 0;
+    text-align: left;
+    margin: 20px;
+    padding: 20px;
+    background-color: #FAFAFA;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    box-shadow: rgba(0, 0, 0, 0.12) 0 1px 6px, rgba(0, 0, 0, 0.12) 0 1px 4px;
+    border-radius: 2px;
 }

@@ -3,6 +3,7 @@ import {Grid, Row} from 'react-flexbox-grid'
 import _is from 'is_js'
 import {saveCity} from '../../state/secondStep'
 import {connect} from "react-redux";
+import {searchPolishSignsAndHyphen, snackbarFunction} from "../utils";
 
 
 class CityInput extends Component {
@@ -19,7 +20,7 @@ class CityInput extends Component {
             <Grid>
                 <Row center="xs">
                     <h3 className={'headings'}>
-                        Type your city
+                        CITY
                     </h3>
                 </Row>
                 <Grid>
@@ -33,6 +34,7 @@ class CityInput extends Component {
                             onBlur={() => {
                                 const ifValid = _is.string(this.state.cityValue)
                                 if ((ifValid === true) &&
+                                    (searchPolishSignsAndHyphen(this.state.cityValue)) &&
                                     (this.state.cityValue !== '') &&
                                     (this.state.cityValue.length > 2)) {
                                     this.setState({
@@ -40,19 +42,22 @@ class CityInput extends Component {
                                         error: ''
                                     })
                                     this.props.saveCity(this.state.cityValue)
-                                } else {
+                                } else if ((ifValid === true) &&
+                                    (this.state.cityValue.length < 1)) {
+                                    return this.setState({classNameForCSS: ''})
+                                }
+                                else {
                                     this.setState({
                                         classNameForCSS: 'invalid',
                                         error: 'city is incorrect'
+                                    }, () => {
+                                        snackbarFunction(this.state.error)
                                     })
                                     this.props.saveCity('')
 
                                 }
                             }}
                         />
-                    </Row>
-                    <Row center="xs">
-                        <p className={'errors'}>{this.state.error}</p>
                     </Row>
                 </Grid>
             </Grid>

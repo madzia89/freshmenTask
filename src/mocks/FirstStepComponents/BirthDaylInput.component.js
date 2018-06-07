@@ -1,17 +1,18 @@
 import React, {Component} from 'react'
 import {Grid, Row} from 'react-flexbox-grid'
 import _is from 'is_js'
-import {savePhoneNumber} from '../../state/firstStep'
-import {connect} from "react-redux";
-import {snackbarFunction} from "../utils";
+import {saveBDay} from '../../state/firstStep'
+import {connect} from "react-redux"
+import {snackbarFunction, fullNowDate} from '../utils'
 
-class PhoneInput extends Component {
+
+class BirthDayInput extends Component {
 
     state = {
-        phoneValue: '',
+        birthDayValue: '',
         error: '',
-        type: 'number',
-        classNameForCSS: ''
+        type: 'date',
+        classNameForCSS: '',
     }
 
     render() {
@@ -19,47 +20,44 @@ class PhoneInput extends Component {
             <Grid>
                 <Row center="xs">
                     <h3 className={'headings'}>
-                        PHONE
+                        DATE OF BIRTH
                     </h3>
                 </Row>
                 <Grid>
                     <Row center="xs">
                         <input
+                            type={'date'}
+                            max={fullNowDate}
                             className={`${this.state.classNameForCSS}`}
-                            value={this.state.phoneValue}
+                            value={this.state.birthDayValue}
                             onChange={(event) => {
-                                this.setState({phoneValue: event.target.value})
+                                this.setState({birthDayValue: event.target.value})
                             }}
                             onBlur={() => {
-                                const numberToState = this.state.phoneValue.split(' ').join('')
-                                const ifValid = _is[this.state.type](numberToState * 1)
-                                if ((ifValid === true) &&
-                                    (ifValid !== 0) &&
-                                    (numberToState.length >= 9)
-                                ) {
+                                const ifValid = _is[this.state.type](this.state.birthDayValue)
+                                if (this.state.birthDayValue.length === 10) {
                                     this.setState({
                                         classNameForCSS: 'valid',
-                                        phoneValue: numberToState,
                                         error: ''
                                     })
-                                    this.props.savePhoneNumber(numberToState)
-                                } else if ((ifValid === true) &&
-                                    (this.state.phoneValue === '')) {
+                                    this.props.saveBDay(this.state.birthDayValue)
+                                } else if (this.state.birthDayValue === '') {
                                     this.setState({classNameForCSS: ''})
                                 } else {
                                     this.setState({
                                         classNameForCSS: 'invalid',
-                                        error: 'eg. XXX XXX XXX'
+                                        error: 'date of birth is incorrect'
                                     }, () => {
                                         snackbarFunction(this.state.error)
                                     })
-                                    this.props.savePhoneNumber('')
+                                    this.props.saveBDay('')
                                 }
                             }}
                         />
                     </Row>
                 </Grid>
             </Grid>
+
         )
     }
 }
@@ -67,10 +65,10 @@ class PhoneInput extends Component {
 const mapStateToProps = state => ({})
 
 const mapDispatchToProps = dispatch => ({
-    savePhoneNumber: (val) => dispatch(savePhoneNumber(val))
+    saveBDay: (val) => dispatch(saveBDay(val))
 })
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(PhoneInput)
+)(BirthDayInput)

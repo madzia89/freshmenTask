@@ -3,6 +3,7 @@ import {Grid, Row} from 'react-flexbox-grid'
 import _is from 'is_js'
 import {saveStreet} from '../../state/secondStep'
 import {connect} from "react-redux";
+import {searchPolishSignsAndHyphen, snackbarFunction} from "../utils";
 
 
 class StreetInput extends Component {
@@ -19,7 +20,7 @@ class StreetInput extends Component {
             <Grid>
                 <Row center="xs">
                     <h3 className={'headings'}>
-                        Type your street
+                        STREET
                     </h3>
                 </Row>
                 <Grid>
@@ -34,24 +35,27 @@ class StreetInput extends Component {
                                 const ifValid = _is.string(this.state.streetValue)
                                 if ((ifValid === true) &&
                                     (this.state.streetValue !== '') &&
+                                    (searchPolishSignsAndHyphen(this.state.streetValue)) &&
                                     (this.state.streetValue.length > 2)) {
                                     this.setState({
                                         classNameForCSS: 'valid',
                                         error: ''
                                     })
                                     this.props.saveStreet(this.state.streetValue)
+                                } else if ((ifValid === true) &&
+                                    (this.state.streetValue.length < 1)) {
+                                    return this.setState({classNameForCSS: ''})
                                 } else {
                                     this.setState({
                                         classNameForCSS: 'invalid',
                                         error: 'street is incorrect'
+                                    }, () => {
+                                        snackbarFunction(this.state.error)
                                     })
                                     this.props.saveStreet('')
                                 }
                             }}
                         />
-                    </Row>
-                    <Row center="xs">
-                        <p className={'errors'}>{this.state.error}</p>
                     </Row>
                 </Grid>
             </Grid>

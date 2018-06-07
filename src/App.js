@@ -4,6 +4,7 @@ import {Grid, Row, Col} from 'react-flexbox-grid'
 import EmailInput from "./mocks/FirstStepComponents/EmailInput.component";
 import NameInput from "./mocks/FirstStepComponents/NameInput.component";
 import PhoneInput from "./mocks/FirstStepComponents/PhoneInput.component";
+import BirthDaylInput from "./mocks/FirstStepComponents/BirthDaylInput.component";
 
 import CityInput from "./mocks/SecondStepComponents/CityInput.component";
 import StreetInput from "./mocks/SecondStepComponents/StreetInput.component";
@@ -40,13 +41,13 @@ class App extends Component {
                         <Row>
                             <PhoneInput/>
                         </Row>
+                        <Row>
+                            <BirthDaylInput/>
+                        </Row>
                     </div>
                 </Grid>
                 <Grid className={'containerForInputs tabForValid tab'}>
                     <div>
-                        <Row>
-                            <CityInput/>
-                        </Row>
                         <Row>
                             <StreetInput/>
                         </Row>
@@ -56,7 +57,9 @@ class App extends Component {
                         <Row>
                             <ZipCode/>
                         </Row>
-
+                        <Row>
+                            <CityInput/>
+                        </Row>
                     </div>
                 </Grid>
                 <Grid className={'containerForInputs tabForValid tab'}>
@@ -70,18 +73,24 @@ class App extends Component {
                         <div
                             style={{float: 'right'}}>
                             <button
+                                className={'nextPrevButton'}
                                 type="button"
                                 id="prevBtn"
                                 onClick={() => nextPrev(-1)}
                             >
+                                <span className={'spanForButtons'}>
                                 Previous
+                            </span>
                             </button>
                             <button
+                                className={'nextPrevButton'}
                                 type="button"
                                 id="nextBtn"
                                 onClick={() => nextPrev(1)}
                             >
+                                <span className={'spanForButtons'}>
                                 Next
+                            </span>
                             </button>
                         </div>
 
@@ -94,6 +103,7 @@ class App extends Component {
                         <span className={"step"}></span>
                     </div>
                 </Grid>
+                <span id={"snackbar"}></span>
             </Grid>
 
         )
