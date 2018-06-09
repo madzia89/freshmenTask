@@ -5,6 +5,7 @@ import {saveBDay} from '../../state/firstStep'
 import {connect} from "react-redux"
 // import {thatFunc} from '../calendar'
 import {thatCal} from '../calendar2'
+import ThatCal from "../calendar2";
 
 class BirthDayInput extends Component {
 
@@ -26,9 +27,7 @@ class BirthDayInput extends Component {
                 <Grid>
                     <Row center="xs">
 
-                        <button id={'calendarInput'}
-                                onClick={() => thatCal()}>
-                        </button>
+                        <ThatCal/>
 
                     </Row>
                     <div className={'letMeSee'}>
