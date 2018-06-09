@@ -1,3 +1,5 @@
+import moment from "moment/moment";
+
 const SAVE_NAME = 'firstStep/SAVE_NAME'
 const SAVE_EMAIL = 'firstStep/SAVE_EMAIL'
 const SAVE_PHONE_NUMBER = 'firstStep/PHONE_NUMBER'
@@ -34,9 +36,11 @@ export default (state = initialState, action) => {
                 phoneNumber: action.phoneValue
             }
         case SAVE_BIRTH_DAY:
+            const bDayFormatted = moment(action.birthDayValue).format('DD-MM-YYYY')
             return {
                 ...state,
-                bDay: action.birthDayValue
+                bDay: bDayFormatted
+
             }
         default:
             return state

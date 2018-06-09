@@ -1,11 +1,10 @@
 import React, {Component} from 'react'
 import {Grid, Row} from 'react-flexbox-grid'
-// import _is from 'is_js'
 import {saveBDay} from '../../state/firstStep'
 import {connect} from "react-redux"
-// import {thatFunc} from '../calendar'
-import {thatCal} from '../calendar2'
-import ThatCal from "../calendar2";
+import ThatCal from "../calendar2"
+import {snackbarFunction} from "../utils";
+import _is from "is_js";
 
 class BirthDayInput extends Component {
 
@@ -15,6 +14,12 @@ class BirthDayInput extends Component {
         type: 'date',
         classNameForCSS: '',
     }
+
+    showCalendar = () => {
+        const tableWithCalendar = document.getElementsByClassName('tableForCalendar')
+        tableWithCalendar[0].style.display = 'block'
+    }
+
 
     render() {
         return (
@@ -26,9 +31,38 @@ class BirthDayInput extends Component {
                 </Row>
                 <Grid>
                     <Row center="xs">
-
                         <ThatCal/>
+                        <input
+                            className={`${this.state.classNameForCSS}`}
+                            onFocus={() => {
+                                this.showCalendar()
+                            }}
+                            value={this.props.bDay}
+                            onBlur={() => {
+                                if (this.props.bDay !== '') {
+                                    this.setState({
+                                        classNameForCSS: 'valid',
+                                        error: ''
+                                    })
+                                }
+                                else if ((this.props.bDay === '') ||
+                                    (this.props.bDay === 'Invalid date')) {
+                                    return this.setState({classNameForCSS: ''})
+                                }
+                                else {
+                                    this.setState({
+                                        classNameForCSS: 'invalid',
+                                        error: 'date is incorrect'
+                                    }, () => {
+                                        snackbarFunction(this.state.error)
+                                    })
+                                    this.props.saveBDay('')
 
+                                }
+                            }
+                            }
+                        >
+                        </input>
                     </Row>
                     <div className={'letMeSee'}>
                     </div>
@@ -39,7 +73,9 @@ class BirthDayInput extends Component {
     }
 }
 
-const mapStateToProps = state => ({})
+const mapStateToProps = state => ({
+    bDay: state.firstStep.bDay
+})
 
 const mapDispatchToProps = dispatch => ({
     saveBDay: (val) => dispatch(saveBDay(val))

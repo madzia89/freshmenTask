@@ -53,10 +53,6 @@ input:focus {
     border-bottom: solid 3px #AD1457;
 }
 
-.calendarInput[type='month'] {
-    background-color: #AD1457;
-}
-
 .valid {
     background: white url("mocks/check-circle.png") no-repeat right;
     background-size: 20px;
@@ -217,4 +213,12 @@ table {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     box-shadow: rgba(0, 0, 0, 0.12) 0 1px 6px, rgba(0, 0, 0, 0.12) 0 1px 4px;
     border-radius: 2px;
+}
+
+.tableForCalendar {
+    display: none;
+}
+
+.squareForDayInCalendarTable {
+    cursor: pointer;
 }
