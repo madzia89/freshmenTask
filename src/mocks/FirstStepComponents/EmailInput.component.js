@@ -29,7 +29,7 @@ class EmailInput extends Component {
                             className={`${this.state.classNameForCSS}`}
                             value={this.state.emailValue}
                             onChange={(event) => {
-                                this.setState({emailValue: event.target.value})
+                                this.setState({emailValue: event.target.value.toLowerCase()})
                             }}
                             onBlur={() => {
                                 const ifValid = _is[this.state.type](this.state.emailValue)

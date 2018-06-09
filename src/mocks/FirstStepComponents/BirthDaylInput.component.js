@@ -3,7 +3,8 @@ import {Grid, Row} from 'react-flexbox-grid'
 // import _is from 'is_js'
 import {saveBDay} from '../../state/firstStep'
 import {connect} from "react-redux"
-import {thatFunc} from '../utils'
+// import {thatFunc} from '../calendar'
+import {thatCal} from '../calendar2'
 
 class BirthDayInput extends Component {
 
@@ -24,11 +25,14 @@ class BirthDayInput extends Component {
                 </Row>
                 <Grid>
                     <Row center="xs">
-                        {thatFunc()}
-                        <input id={'calendarInput'}>
-                        </input>
+
+                        <button id={'calendarInput'}
+                                onClick={() => thatCal()}>
+                        </button>
 
                     </Row>
+                    <div className={'letMeSee'}>
+                    </div>
                 </Grid>
             </Grid>
 
