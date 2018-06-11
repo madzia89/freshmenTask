@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {Grid, Row} from 'react-flexbox-grid'
 import {saveBDay} from '../../state/firstStep'
 import {connect} from "react-redux"
-import ThatCal from "../calendar2"
+import CalendarInput from "./CalendarInput.component"
 import {snackbarFunction} from "../utils";
 import _is from "is_js";
 
@@ -19,6 +19,27 @@ class BirthDayInput extends Component {
         const tableWithCalendar = document.getElementsByClassName('tableForCalendar')
         tableWithCalendar[0].style.display = 'block'
     }
+    birthdayInputValidation = () => {
+        if (this.props.bDay !== '') {
+            this.setState({
+                classNameForCSS: 'valid',
+                error: ''
+            })
+        }
+        else if ((this.props.bDay === '') ||
+            (this.props.bDay === 'Invalid date')) {
+            return this.setState({classNameForCSS: ''})
+        }
+        else {
+            this.setState({
+                classNameForCSS: 'invalid',
+                error: 'date is incorrect'
+            }, () => {
+                snackbarFunction(this.state.error)
+            })
+            this.props.saveBDay('')
+        }
+    }
 
 
     render() {
@@ -31,37 +52,24 @@ class BirthDayInput extends Component {
                 </Row>
                 <Grid>
                     <Row center="xs">
-                        <ThatCal/>
                         <input
                             className={`${this.state.classNameForCSS}`}
-                            onFocus={() => {
-                                this.showCalendar()
-                            }}
-                            value={this.props.bDay}
-                            onBlur={() => {
-                                if (this.props.bDay !== '') {
-                                    this.setState({
-                                        classNameForCSS: 'valid',
-                                        error: ''
-                                    })
-                                }
-                                else if ((this.props.bDay === '') ||
-                                    (this.props.bDay === 'Invalid date')) {
-                                    return this.setState({classNameForCSS: ''})
-                                }
-                                else {
-                                    this.setState({
-                                        classNameForCSS: 'invalid',
-                                        error: 'date is incorrect'
-                                    }, () => {
-                                        snackbarFunction(this.state.error)
-                                    })
+                            onKeyDown={(ev) => {
+                                if ((ev.key === 'Backspace') || (ev.key === 'Delete')) {
                                     this.props.saveBDay('')
                                 }
+                            }}
+                            value={this.props.bDay}
+                            onFocus={() => {
+                                this.showCalendar()
+                                setInterval(this.birthdayInputValidation, 1000)
                             }
                             }
+
                         >
                         </input>
+                        <CalendarInput/>
+
                     </Row>
                     <div className={'letMeSee'}>
                     </div>

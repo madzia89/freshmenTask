@@ -24,6 +24,10 @@ const ConfirmComponent = (props) => (
                     <td>{props.firstStepData.phoneNumber}</td>
                 </tr>
                 <tr>
+                    <td className={'summaryRow'}>birthday</td>
+                    <td>{props.firstStepData.bDay}</td>
+                </tr>
+                <tr>
                     <td className={'summaryRow'}>city</td>
                     <td>{props.secondStepData.city}</td>
                 </tr>

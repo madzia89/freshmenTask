@@ -133,7 +133,7 @@ input:focus {
     display: none;
 }
 
-.nextPrevButton {
+.nextPrevButton, .calendarButton {
     display: inline-block;
     border-radius: 4px;
     background-color: #FAFAFA;
@@ -149,6 +149,23 @@ input:focus {
     margin: 5px;
 }
 
+.calendarYearHeading {
+    color: #b3005c;
+    font-size: 24px;;
+    font-weight: bold;
+}
+
+.calendarMonthHeading {
+    color: #ff0084;
+    font-size: 16px;;
+    font-weight: bold;
+}
+
+.calendarButton {
+    width: 40px;
+    height: 30px;
+}
+
 .nextPrevButton .spanForButtons {
     cursor: pointer;
     display: inline-block;
@@ -156,16 +173,24 @@ input:focus {
     transition: 0.5s;
 }
 
-.nextPrevButton .spanForButtons:after {
-    position: absolute;
-    opacity: 0;
-    top: 0;
-    transition: 0.5s;
+#prevYearCalendarButton {
+    background: url("mocks/angle-double-left.png") no-repeat center;
+    background-size: 30px;
 }
 
-.nextPrevButton:hover .spanForButtons:after {
-    opacity: 1;
-    right: 0;
+#nextYearCalendarButton {
+    background: url("mocks/angle-double-right.png") no-repeat center;
+    background-size: 30px;
+}
+
+#prevMonthCalendarButton {
+    background: url("mocks/angle-left.png") no-repeat center;
+    background-size: 20px;
+}
+
+#nextMonthCalendarButton {
+    background: url("mocks/angle-right.png") no-repeat center;
+    background-size: 20px;
 }
 
 .todaysDate {

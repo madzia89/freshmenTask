@@ -2,12 +2,12 @@ import React, {Component} from 'react'
 import moment from "moment/min/moment-with-locales";
 import {range} from 'lodash'
 import {connect} from "react-redux";
-import {saveBDay} from "../state/firstStep";
+import {saveBDay} from "../../state/firstStep";
 
 moment.locale('pl-PL')
 
 
-class ThatCal extends Component {
+class CalendarInput extends Component {
     state = {
         thisMoment: moment(),
         weeks: []
@@ -27,7 +27,6 @@ class ThatCal extends Component {
         let endRange = endMonth.clone().endOf('week')
 
         let howManyWeeks = endRange.diff(startRange, 'weeks') + 1
-        let howManyDays = endRange.diff(startRange, 'days') + 1
 
         const weeks = range(0, howManyWeeks).map((week, k) => {
             const _newWeek = range(0, 7);
@@ -75,35 +74,45 @@ class ThatCal extends Component {
                     <tr>
                         <th style={{textAlign: 'center'}}>
                             <button
+                                className={'calendarButton'}
+                                id={'prevYearCalendarButton'}
                                 onClick={this.onPrevYearClick}
                             >
-                                prev
                             </button>
                         </th>
-                        <th colSpan={5} style={{textAlign: 'center'}}>{this.state.thisMoment.format('Y')}
+                        <th
+                            colSpan={5} style={{textAlign: 'center'}}
+                            className={'calendarYearHeading'}
+                        >{this.state.thisMoment.format('Y')}
                         </th>
                         <th style={{textAlign: 'center'}}>
                             <button
+                                className={'calendarButton'}
+                                id={'nextYearCalendarButton'}
                                 onClick={this.onNextYearClick}
                             >
-                                next
                             </button>
                         </th>
                     </tr>
                     <tr>
                         <th style={{textAlign: 'center'}}>
                             <button
+                                className={'calendarButton'}
+                                id={'prevMonthCalendarButton'}
                                 onClick={this.onPrevClick}
                             >
-                                prev
                             </button>
                         </th>
-                        <th colSpan={5} style={{textAlign: 'center'}}>{this.state.thisMoment.format('MMMM')}</th>
+                        <th
+                            className={'calendarMonthHeading'}
+                            colSpan={5} style={{textAlign: 'center'}}
+                        >{this.state.thisMoment.format('MMMM')}</th>
                         <th style={{textAlign: 'center'}}>
                             <button
+                                className={'calendarButton'}
+                                id={'nextMonthCalendarButton'}
                                 onClick={this.onNextClick}
                             >
-                                next
                             </button>
                         </th>
                     </tr>
@@ -116,7 +125,9 @@ class ThatCal extends Component {
                                 const mappedDay = myDay.slice(0, 2)
                                 const endMonth = this.state.endMonth
                                 const startMonth = this.state.startMonth
-                                if (ii === 6) {
+                                const daysInTheCurrentMonth = (myDayNotFormatted >= startMonth) &&
+                                    (myDayNotFormatted < endMonth)
+                                if ((ii === 6) && daysInTheCurrentMonth) {
                                     return (<td key={ii}
                                                 onClick={() => {
                                                     this.props.saveBDay(myDay)
@@ -138,8 +149,7 @@ class ThatCal extends Component {
                                         {mappedDay}
                                     </td>)
                                 } else if ((myDay !== moment().format('DD-MM-YYYY')) &&
-                                    (myDayNotFormatted >= startMonth) &&
-                                    (myDayNotFormatted < endMonth)) {
+                                    daysInTheCurrentMonth) {
                                     return (<td key={ii}
                                                 onClick={() => {
                                                     this.props.saveBDay(myDay)
@@ -179,4 +189,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(ThatCal)
+)(CalendarInput)
