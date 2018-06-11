@@ -168,6 +168,19 @@ input:focus {
     right: 0;
 }
 
+.todaysDate {
+    background-color: lightblue;
+}
+
+.holiday {
+    color: red;
+    font-weight: bold;
+}
+
+.afterEndMonth {
+    color: grey;
+}
+
 .step {
     height: 15px;
     width: 15px;

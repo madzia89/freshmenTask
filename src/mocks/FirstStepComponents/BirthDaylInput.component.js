@@ -57,7 +57,6 @@ class BirthDayInput extends Component {
                                         snackbarFunction(this.state.error)
                                     })
                                     this.props.saveBDay('')
-
                                 }
                             }
                             }

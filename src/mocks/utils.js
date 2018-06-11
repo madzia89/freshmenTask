@@ -21,5 +21,3 @@ export const snackbarFunction = (propser) => {
     }, 3000);
 }
 
-
-

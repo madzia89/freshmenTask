@@ -1,62 +1,67 @@
 import React, {Component} from 'react'
-import moment from "moment/moment";
+import moment from "moment/min/moment-with-locales";
+import {range} from 'lodash'
 import {connect} from "react-redux";
 import {saveBDay} from "../state/firstStep";
+
+moment.locale('pl-PL')
 
 
 class ThatCal extends Component {
     state = {
         thisMoment: moment(),
-        startWeek: moment().startOf('month').week(),
-        endWeek: moment().endOf('month').week(),
-        calendar: []
+        weeks: []
     }
 
     componentDidMount() {
-        this.updateCalendar()
+        let _now = moment()
+        this.calculateMonthRange(_now)
     }
 
-    updateCalendar = () => {
-        let calendar = []
-        for (var week = this.state.startWeek; week <= this.state.endWeek; week++) {
-            calendar.push({
-                week: week,
-                days: Array(7).fill(0)
-                    .map((n, i) => moment()
-                        .week(week).startOf('week')
-                        .clone()
-                        .add(n + i, 'day'))
+    calculateMonthRange = (_moment) => {
+
+        let startMonth = _moment.clone().startOf('month')
+        let endMonth = _moment.clone().endOf('month')
+
+        let startRange = startMonth.clone().startOf('week')
+        let endRange = endMonth.clone().endOf('week')
+
+        let howManyWeeks = endRange.diff(startRange, 'weeks') + 1
+        let howManyDays = endRange.diff(startRange, 'days') + 1
+
+        const weeks = range(0, howManyWeeks).map((week, k) => {
+            const _newWeek = range(0, 7);
+            return _newWeek.map((day, _k) => {
+                return startRange.clone().add((k * 7 + _k), 'd')
             })
-        }
-        this.setState({calendar})
+        })
+        return this.setState({weeks, startMonth, endMonth})
     }
-
 
     onPrevClick = () => {
-        this.setState({thisMoment: this.state.thisMoment.subtract(1, 'month')},
-            () => {
-                this.setState({
-                        startWeek: this.state.thisMoment.startOf('month').week(),
-                        endWeek: this.state.thisMoment.endOf('month').week()
-                    },
-                    () => {
-                        this.updateCalendar()
-                    })
-            })
+        let newNow = this.state.thisMoment.subtract(1, 'months')
+        this.calculateMonthRange(newNow)
+        this.setState({thisMoment: newNow})
+    }
+
+    onPrevYearClick = () => {
+        let newNow = this.state.thisMoment.subtract(1, 'years')
+        this.calculateMonthRange(newNow)
+        this.setState({thisMoment: newNow})
     }
 
     onNextClick = () => {
-        this.setState({thisMoment: this.state.thisMoment.add(1, 'month')},
-            () => {
-                this.setState({
-                        startWeek: this.state.thisMoment.startOf('month').week(),
-                        endWeek: this.state.thisMoment.endOf('month').week()
-                    },
-                    () => {
-                        this.updateCalendar()
-                    })
-            })
+        let newNow = this.state.thisMoment.add(1, 'months')
+        this.calculateMonthRange(newNow)
+        this.setState({thisMoment: newNow})
     }
+
+    onNextYearClick = () => {
+        let newNow = this.state.thisMoment.add(1, 'years')
+        this.calculateMonthRange(newNow)
+        this.setState({thisMoment: newNow})
+    }
+
     hideCalendar = () => {
         const tableWithCalendar = document.getElementsByClassName('tableForCalendar')
         tableWithCalendar[0].style.display = 'none'
@@ -68,7 +73,21 @@ class ThatCal extends Component {
                 <table>
                     <thead>
                     <tr>
-                        <th colSpan={8} style={{textAlign: 'center'}}>{this.state.thisMoment.format('Y')}
+                        <th style={{textAlign: 'center'}}>
+                            <button
+                                onClick={this.onPrevYearClick}
+                            >
+                                prev
+                            </button>
+                        </th>
+                        <th colSpan={5} style={{textAlign: 'center'}}>{this.state.thisMoment.format('Y')}
+                        </th>
+                        <th style={{textAlign: 'center'}}>
+                            <button
+                                onClick={this.onNextYearClick}
+                            >
+                                next
+                            </button>
                         </th>
                     </tr>
                     <tr>
@@ -79,7 +98,7 @@ class ThatCal extends Component {
                                 prev
                             </button>
                         </th>
-                        <th colSpan={6} style={{textAlign: 'center'}}>{this.state.thisMoment.format('MMMM')}</th>
+                        <th colSpan={5} style={{textAlign: 'center'}}>{this.state.thisMoment.format('MMMM')}</th>
                         <th style={{textAlign: 'center'}}>
                             <button
                                 onClick={this.onNextClick}
@@ -90,19 +109,57 @@ class ThatCal extends Component {
                     </tr>
                     </thead>
                     <tbody>
-                    {this.state.calendar.map((week, i) => {
+                    {this.state.weeks.map((week, i) => {
                         return (<tr key={i}>
-                            <td style={{color: 'grey'}}>{week.week}</td>
-                            {this.state.calendar[i].days.map(day => day._d).map((element, ii) => {
-                                return (<td key={ii}
-                                            onClick={() => {
-                                                this.props.saveBDay(element)
-                                                this.hideCalendar()
-                                            }}
-                                            className={'squareForDayInCalendarTable'}
-                                >
-                                    {moment(element).format('D')}
-                                </td>)
+                            {this.state.weeks[i].map((myDayNotFormatted, ii) => {
+                                const myDay = myDayNotFormatted.format('DD-MM-YYYY')
+                                const mappedDay = myDay.slice(0, 2)
+                                const endMonth = this.state.endMonth
+                                const startMonth = this.state.startMonth
+                                if (ii === 6) {
+                                    return (<td key={ii}
+                                                onClick={() => {
+                                                    this.props.saveBDay(myDay)
+                                                    this.hideCalendar()
+                                                }}
+                                                className={'squareForDayInCalendarTable holiday'}
+                                    >
+                                        {mappedDay}
+                                    </td>)
+                                }
+                                if (myDay === moment().format('DD-MM-YYYY')) {
+                                    return (<td key={ii}
+                                                onClick={() => {
+                                                    this.props.saveBDay(myDay)
+                                                    this.hideCalendar()
+                                                }}
+                                                className={'squareForDayInCalendarTable todaysDate'}
+                                    >
+                                        {mappedDay}
+                                    </td>)
+                                } else if ((myDay !== moment().format('DD-MM-YYYY')) &&
+                                    (myDayNotFormatted >= startMonth) &&
+                                    (myDayNotFormatted < endMonth)) {
+                                    return (<td key={ii}
+                                                onClick={() => {
+                                                    this.props.saveBDay(myDay)
+                                                    this.hideCalendar()
+                                                }}
+                                                className={'squareForDayInCalendarTable'}
+                                    >
+                                        {mappedDay}
+                                    </td>)
+                                } else {
+                                    return (<td key={ii}
+                                                onClick={() => {
+                                                    this.props.saveBDay(myDay)
+                                                    this.hideCalendar()
+                                                }}
+                                                className={'squareForDayInCalendarTable afterEndMonth'}
+                                    >
+                                        {mappedDay}
+                                    </td>)
+                                }
                             })}
                         </tr>)
                     })}
