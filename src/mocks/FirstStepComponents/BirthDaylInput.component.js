@@ -63,13 +63,10 @@ class BirthDayInput extends Component {
                             onFocus={() => {
                                 this.showCalendar()
                                 setInterval(this.birthdayInputValidation, 1000)
-                            }
-                            }
-
+                            }}
                         >
                         </input>
                         <CalendarInput/>
-
                     </Row>
                     <div className={'letMeSee'}>
                     </div>

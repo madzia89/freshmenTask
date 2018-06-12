@@ -238,14 +238,15 @@ input:focus {
 
 td {
     border-bottom: 1px solid #263238;
-    padding: 10px 15px;
+    padding: 7px 15px;
+
 }
 
 table {
     border-spacing: 0;
     text-align: left;
     margin: 20px;
-    padding: 20px;
+    padding: 10px;
     background-color: #FAFAFA;
     box-sizing: border-box;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -259,4 +260,7 @@ table {
 
 .squareForDayInCalendarTable {
     cursor: pointer;
+    width: 40px;
+    padding: 5px;
+    text-align: center;
 }
