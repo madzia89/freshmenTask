@@ -1,3 +1,5 @@
+import {snackbarFunction} from '../../src/mocks/utils'
+
 export let currentTab = 0;
 
 export const showTab = (currentTab) => {
@@ -19,7 +21,10 @@ export const showTab = (currentTab) => {
 
 export const nextPrev = (n) => {
     const arrayOfTabs = document.getElementsByClassName("tab")
-    if (n === 1 && !validateForm()) return false
+    if (n === 1 && !validateForm()) {
+        snackbarFunction('all fields are required')
+        return false
+    }
     arrayOfTabs[currentTab].style.display = "none"
     currentTab = currentTab + n
     if (currentTab === arrayOfTabs.length) {

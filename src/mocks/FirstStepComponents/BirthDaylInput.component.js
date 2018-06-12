@@ -4,7 +4,6 @@ import {saveBDay} from '../../state/firstStep'
 import {connect} from "react-redux"
 import CalendarInput from "./CalendarInput.component"
 import {snackbarFunction} from "../utils";
-import _is from "is_js";
 
 class BirthDayInput extends Component {
 
