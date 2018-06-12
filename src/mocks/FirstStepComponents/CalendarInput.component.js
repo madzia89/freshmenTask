@@ -3,6 +3,7 @@ import moment from "moment/min/moment-with-locales";
 import {range} from 'lodash'
 import {connect} from "react-redux";
 import {saveBDay} from "../../state/firstStep";
+import {snackbarFunction} from '../utils'
 
 moment.locale('pl-PL')
 
@@ -64,6 +65,14 @@ class CalendarInput extends Component {
     hideCalendar = () => {
         const tableWithCalendar = document.getElementsByClassName('tableForCalendar')
         tableWithCalendar[0].style.display = 'none'
+    }
+
+    checkIfDateIsntInTheFuture = (clickedDay) => {
+        if (clickedDay < moment()) {
+            this.props.saveBDay(clickedDay.format('DD-MM-YYYY'))
+            this.hideCalendar()
+        }
+        else snackbarFunction('date cannot be in the future')
     }
 
     render() {
@@ -130,8 +139,7 @@ class CalendarInput extends Component {
                                 if ((ii === 6) && daysInTheCurrentMonth) {
                                     return (<td key={ii}
                                                 onClick={() => {
-                                                    this.props.saveBDay(myDay)
-                                                    this.hideCalendar()
+                                                    this.checkIfDateIsntInTheFuture(myDayNotFormatted)
                                                 }}
                                                 className={'squareForDayInCalendarTable holiday'}
                                     >
@@ -141,8 +149,7 @@ class CalendarInput extends Component {
                                 if (myDay === moment().format('DD-MM-YYYY')) {
                                     return (<td key={ii}
                                                 onClick={() => {
-                                                    this.props.saveBDay(myDay)
-                                                    this.hideCalendar()
+                                                    this.checkIfDateIsntInTheFuture(myDayNotFormatted)
                                                 }}
                                                 className={'squareForDayInCalendarTable todaysDate'}
                                     >
@@ -152,8 +159,7 @@ class CalendarInput extends Component {
                                     daysInTheCurrentMonth) {
                                     return (<td key={ii}
                                                 onClick={() => {
-                                                    this.props.saveBDay(myDay)
-                                                    this.hideCalendar()
+                                                    this.checkIfDateIsntInTheFuture(myDayNotFormatted)
                                                 }}
                                                 className={'squareForDayInCalendarTable'}
                                     >
@@ -162,8 +168,7 @@ class CalendarInput extends Component {
                                 } else {
                                     return (<td key={ii}
                                                 onClick={() => {
-                                                    this.props.saveBDay(myDay)
-                                                    this.hideCalendar()
+                                                    this.checkIfDateIsntInTheFuture(myDayNotFormatted)
                                                 }}
                                                 className={'squareForDayInCalendarTable afterEndMonth'}
                                     >
